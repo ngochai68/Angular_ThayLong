@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">
+    DANH SÁCH SẢN PHẨM
+    <label class="float-end">
+      <input name="tk" [(ngModel)]="tukhoa" (keyup)="locSP()" />
+      <em class="text-danger"> {{ tukhoa }}</em>
+    </label>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th *ngIf="showImages">Hình</th>
+          <th>Tên SP</th>
+          <th>Mã SP</th>
+          <th>Ngày</th>
+          <th>Giá</th>
+          <th>Đánh giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products">
+          <td *ngIf="showImages"><img [src]="p.urlImage" height="50" /></td>
+          <td>{{ p.tensp | uppercase }}</td>
+          <td>{{ p.code }}</td>
+          <td>{{ p.ngay | date : "dd/MM/Y" }}</td>
+          <td>{{ calculateVndValue(p.giasp) }} VNĐ</td>
+          <td>
+            <div
+              class="crop"
+              [style.width.px]="(p.starRate * 90) / 5"
+              title="rating"
+            >
+              <div style="width: 90px">
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i> <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <button (click)="toggleImageVisibility()">
+        {{ showImages ? "Ẩn hình ảnh" : "Hiện hình ảnh" }}
+      </button>
+    </table>
+  </div>
+  <div class="card-footer">Số lượng sản phẩm: <b>0</b></div>
+</div>
