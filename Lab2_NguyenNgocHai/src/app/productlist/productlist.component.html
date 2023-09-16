@@ -1,16 +1,16 @@
-<div class="card">
-  <div class="card-header">
+<div class="card" style="margin: 20px; border: none; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+  <div class="card-header" style="background-color: #007bff; color: #fff; border-radius: 5px 5px 0 0; padding: 10px;">
     DANH SÁCH SẢN PHẨM
-    <label class="float-end">
-      <input name="tk" [(ngModel)]="tukhoa" (keyup)="locSP()" />
-      <em class="text-danger"> {{ tukhoa }}</em>
+    <label class="float-end" style="display: flex; align-items: center;">
+      <input name="tk" [(ngModel)]="tukhoa" (keyup)="locSP()" style="padding: 5px; border: 1px solid #ccc; border-radius: 3px;" />
+      <em class="text-danger" style="margin-left: 5px;">{{ tukhoa }}</em>
     </label>
   </div>
-  <div class="card-body">
-    <table class="table table-bordered table-hover">
+  <div class="card-body" style="background-color: #f8f9fa; padding: 20px;">
+    <table class="table table-bordered table-hover" style="width: 100%; margin-bottom: 0;">
       <thead>
         <tr>
-          <th *ngIf="showImages">Hình</th>
+          <th *ngIf="showImages" style="text-align: center; background-color: #fff;">Hình</th>
           <th>Tên SP</th>
           <th>Mã SP</th>
           <th>Ngày</th>
@@ -20,31 +20,30 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of products">
-          <td *ngIf="showImages"><img [src]="p.urlImage" height="50" /></td>
+          <td *ngIf="showImages" style="text-align: center; background-color: #fff;">
+            <img [src]="p.urlImage" width="100" height="100" style="object-fit: cover; max-width: 100%; max-height: 100%;"/>
+          </td>
           <td>{{ p.tensp | uppercase }}</td>
           <td>{{ p.code }}</td>
           <td>{{ p.ngay | date : "dd/MM/Y" }}</td>
           <td>{{ calculateVndValue(p.giasp) }} VNĐ</td>
           <td>
-            <div
-              class="crop"
-              [style.width.px]="(p.starRate * 90) / 5"
-              title="rating"
-            >
-              <div style="width: 90px">
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i> <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-                <i class="bi bi-star"></i>
-              </div>
+            <div class="crop" [style.width.px]="(p.starRate * 90) / 5" title="rating" style="width: 90px;">
+              <i class="bi bi-star" style="color: #ffc107;"></i>
+              <i class="bi bi-star" style="color: #ffc107;"></i>
+              <i class="bi bi-star" style="color: #ffc107;"></i>
+              <i class="bi bi-star" style="color: #ffc107;"></i>
+              <i class="bi bi-star" style="color: #ffc107;"></i>
             </div>
           </td>
         </tr>
       </tbody>
-      <button (click)="toggleImageVisibility()">
-        {{ showImages ? "Ẩn hình ảnh" : "Hiện hình ảnh" }}
-      </button>
     </table>
+    <button (click)="toggleImageVisibility()" style="margin-top: 20px; padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 3px; cursor: pointer;">
+      {{ showImages ? "Ẩn hình ảnh" : "Hiện hình ảnh" }}
+    </button>
   </div>
-  <div class="card-footer">Số lượng sản phẩm: <b>0</b></div>
+  <div class="card-footer" style="background-color: #f8f9fa; border-top: 1px solid #ccc; padding: 10px; text-align: right;">
+    Số lượng sản phẩm: <b>0</b>
+  </div>
 </div>

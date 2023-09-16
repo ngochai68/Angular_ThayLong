@@ -35,7 +35,8 @@ export class AppComponent {
         const hoTen = `${nkh.ho.toUpperCase()} ${nkh.ten.toUpperCase()}`;
 
         return `
-          <p>${nkh.id}. ${hoTen} (${nkh.sinh} - ${nkh.mat}, Tuổi: ${age})</p>
+        <p style="margin-bottom: 0;">${nkh.id}. ${hoTen}</p>
+        <small style="color: #6c757d;">${nkh.sinh} - ${nkh.mat}, Tuổi: ${age}</small>
         `;
       })
       .join('');
@@ -117,20 +118,20 @@ export class AppComponent {
     let codehtml = '<div class="row">';
     this.listSP.forEach((sp) => {
       codehtml += `
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="${sp.urlImage}" class="card-img-top" alt="${sp.tensp}" style="max-width: 90%; margin: auto; padding: 10%">
-            <div class="card-body">
-              <h5 class="card-title">${sp.tensp}</h5>
-              <p class="card-text">${sp.mota}</p>
-              <p class="card-text">Mã sản phẩm: ${sp.code}</p>
-              <p class="card-text">Giá sản phẩm: ${sp.giasp} VND</p>
-              <p class="card-text">Ngày cập nhật: ${sp.ngay}</p>
-              <p class="card-text">Đánh giá: ${sp.starRate} sao</p>
-              <a href="#" class="btn btn-primary">Xem chi tiết</a>
-            </div>
-          </div>
+      <div class="col-md-4 mb-4">
+      <div class="card" style="border: 1px solid #e0e0e0; border-radius: 8px; transition: transform 0.2s;">
+        <img src="${sp.urlImage}" class="card-img-top" alt="${sp.tensp}" style="max-width: 90%; margin: auto; padding: 10%;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 1.25rem;">${sp.tensp}</h5>
+          <p class="card-text" style="color: #666;">${sp.mota}</p>
+          <p class="card-text">Mã sản phẩm: ${sp.code}</p>
+          <p class="card-text">Giá sản phẩm: ${sp.giasp} VND</p>
+          <p class="card-text">Ngày cập nhật: ${sp.ngay}</p>
+          <p class="card-text">Đánh giá: ${sp.starRate} sao</p>
+          <a href="#" class="btn btn-primary">Xem chi tiết</a>
         </div>
+      </div>
+    </div>
       `;
     });
     codehtml += '</div>';
