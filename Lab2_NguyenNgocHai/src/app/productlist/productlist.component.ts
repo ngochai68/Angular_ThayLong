@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges  } from '@angular/core';
 import { ISanpham } from '../ISanpham';
 
 @Component({
@@ -93,10 +93,15 @@ export class ProductlistComponent implements OnInit {
     this.showImages = !this.showImages;
   }
 
-  searchKeyword: string = '';
+  @Input() searchQuery: string = ''; 
 
-  onSearchKeywordChange(keyword: string) {
-    this.searchKeyword = keyword;
-    this.locSP();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchQuery'] && !changes['searchQuery'].firstChange) {
+      this.tukhoa = this.searchQuery; 
+      this.locSP(); 
+    }
   }
+
+  
+
 }

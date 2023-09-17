@@ -1,5 +1,4 @@
 <div class="container">
-  <app-header></app-header>
-  <app-productlist></app-productlist>
-  
+  <app-header (searchEvent)="onSearch($event)"></app-header>
+  <app-productlist [searchQuery]="searchQuery"></app-productlist>
 </div>
