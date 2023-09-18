@@ -1,0 +1,8 @@
+<form class="col-8 m-auto border border-primary p-2">
+    <p>Tên SP <input name="tensp" [(ngModel)]="sp.tensp" type="text" class="form-control"></p>
+    <p>Giá <input name="giasp" [(ngModel)]="sp.giasp" type="text" class="form-control"></p>
+    <p>Code <input name="code" [(ngModel)]="sp.code" type="text" class="form-control"></p>
+    <p>Ngày <input name="ngay" [(ngModel)]="sp.ngay" type="text" class="form-control"></p>
+    <p>Mô tả <textarea name="mota" [(ngModel)]="sp.mota" class="form-control"></textarea></p>
+    <p><button class="btn btn-warning py-2 px-5" (click)="capnhatSP()">Cập nhật</button></p>
+</form>

@@ -1,0 +1,9 @@
+<div class="sp mb-3" *ngFor="let sp of listSP">
+  <img src="{{ sp.urlImage }}" align="left" height="100" width="100" alt="" />
+  <h4>
+    <a [routerLink]="['/sanpham', sp.id]" href="#">{{ sp.tensp }}</a>
+  </h4>
+  <p>{{ sp.mota }}</p>
+  <p>{{ sp.giasp }}</p>
+  <hr />
+</div>

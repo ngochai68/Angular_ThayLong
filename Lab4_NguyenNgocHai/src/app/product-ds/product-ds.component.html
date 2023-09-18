@@ -1,0 +1,22 @@
+<h4>QUẢN TRỊ SẢN PHẨM</h4>
+<table class="table table-bordered table-hover">
+    <thead class="bg-warning">
+        <tr>
+            <th>Hình</th>
+            <th>Tên SP</th>
+            <th>Ngày</th>
+            <th>Giá</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let p of listSP">
+        <td><img [src]="p.urlImage" height="50" [title]="p.tensp|uppercase"></td>
+        <td><a href="#" [routerLink]="['/sanpham', p.id]">{{p.tensp|uppercase}}</a></td>
+        <td [innerText]="p.ngay|date:'dd/MM/Y'"></td>
+        <td>{{p.giasp|currency:' VNĐ '}}</td>
+        <td>
+            <a href="#" [routerLink]="['/admin/suaSP', p.id]">Sửa</a> &nbsp;
+            <a href="#" (click)="xoaSP(p.id)">Xóa</a>
+        </td>
+    </tr>
+</table>
