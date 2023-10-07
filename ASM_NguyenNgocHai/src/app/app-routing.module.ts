@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { DuanListComponent } from './duan-list/duan-list.component';
 import { DuanThemComponent } from './duan-them/duan-them.component';
 import { DuanSuaComponent } from './duan-sua/duan-sua.component';
+import { DuanChitietComponent } from './duan-chitiet/duan-chitiet.component';
 import { NvListComponent } from './nv-list/nv-list.component';
 import { NvThemComponent } from './nv-them/nv-them.component';
 import { NvSuaComponent } from './nv-sua/nv-sua.component';
@@ -14,6 +15,7 @@ import { TaskSuaComponent } from './task-sua/task-sua.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'duan', component: DuanListComponent },
+  { path: 'duan/:id', component: DuanChitietComponent },
   { path: 'duan/them', component: DuanThemComponent },
   { path: 'duan/sua/:id', component: DuanSuaComponent },
   { path: 'nhanvien', component: NvListComponent },

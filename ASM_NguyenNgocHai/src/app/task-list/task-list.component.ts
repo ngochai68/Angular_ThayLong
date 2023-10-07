@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
+import { DuAnService } from '../du-an.service';
+import { NhanVienService } from '../nhan-vien.service';
 
 @Component({
   selector: 'app-task-list',
@@ -92,7 +94,7 @@ export class TaskListComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private duAnService: DuAnService, private nhanVienService: NhanVienService) {}
   listTask2: Task[] = [];
 
   ngOnInit(): void {
@@ -104,5 +106,13 @@ export class TaskListComponent implements OnInit {
     this.listTask = this.listTask2.filter((p) =>
       p.tenTask.toLowerCase().includes(keyword)
     );
+  }
+
+  getTenDuAn(duAnID: number): string | undefined {
+    return this.duAnService.getTenDuAn(duAnID);
+  }
+
+  getTenNhanVien(nhanvienID: number): string | undefined {
+    return this.nhanVienService.getTenNhanVien(nhanvienID);
   }
 }

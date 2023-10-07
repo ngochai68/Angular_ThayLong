@@ -14,6 +14,7 @@ import { TaskSuaComponent } from './task-sua/task-sua.component';
 import { NvListComponent } from './nv-list/nv-list.component';
 import { NvThemComponent } from './nv-them/nv-them.component';
 import { NvSuaComponent } from './nv-sua/nv-sua.component';
+import { DuanChitietComponent } from './duan-chitiet/duan-chitiet.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NvSuaComponent } from './nv-sua/nv-sua.component';
     TaskSuaComponent,
     NvListComponent,
     NvThemComponent,
-    NvSuaComponent
+    NvSuaComponent,
+    DuanChitietComponent
   ],
   imports: [
     BrowserModule,

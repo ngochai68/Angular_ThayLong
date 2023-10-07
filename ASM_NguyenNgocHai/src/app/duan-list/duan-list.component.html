@@ -21,7 +21,7 @@
       <tbody>
         <tr *ngFor="let da of listDuAn">
           <td>{{ da.id }}</td>
-          <td>{{ da.tenDuAn }}</td>
+          <a [routerLink]="['/duan', da.id]" class="btn btn-link text-decoration-none">{{ da.tenDuAn }}</a>
           <td>{{ da.ngayStart | date : "dd/MM/yyyy" }}</td>
           <td>{{ da.tien | currency : "VND" : true }}</td>
         </tr>
