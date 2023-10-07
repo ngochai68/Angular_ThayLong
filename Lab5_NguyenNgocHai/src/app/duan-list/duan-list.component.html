@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2 class="text-center">DANH SÁCH DỰ ÁN</h2>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <input class="form-control" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm dự án..." (keyup)="filteredDuAn()">
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped mt-3">
+      <caption align="top" class="bg-warning p-2 text-center">
+        DANH SÁCH DỰ ÁN
+      </caption>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên dự án</th>
+          <th>Ngày bắt đầu</th>
+          <th>Tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let da of listDuAn">
+          <td>{{ da.id }}</td>
+          <a [routerLink]="['/duan', da.id]" class="btn btn-link text-decoration-none">{{ da.tenDuAn }}</a>
+          <td>{{ da.ngayStart | date : "dd/MM/yyyy" }}</td>
+          <td>{{ da.tien | currency : "VND" : true }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
