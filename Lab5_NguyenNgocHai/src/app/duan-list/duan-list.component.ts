@@ -25,4 +25,13 @@ export class DuanListComponent implements OnInit {
       p.tenDuAn.toLowerCase().includes(keyword)
     );
   }
+
+  deleteDuAn(id: number) {
+    if (confirm("Bạn có chắc chắn muốn xóa dự án này không?")) {
+      this.duAnService.deleteDuAn(id);
+      // Sau khi xóa, cập nhật lại danh sách dự án
+      this.listDuAn = this.listDuAn.filter(da => da.id !== id);
+    }
+  }
+  
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DuAnService } from '../du-an.service';
 import { NhanVienService } from '../nhan-vien.service'; // Import service của nhân viên
 import { NhanVien } from '../nhan-vien';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-duan-them',
@@ -20,7 +21,8 @@ export class DuanThemComponent {
 
   constructor(
     private duAnService: DuAnService,
-    private nhanVienService: NhanVienService
+    private nhanVienService: NhanVienService,
+    private router: Router 
   ) {
     // Lấy danh sách nhân viên từ service
     this.listNhanVien = this.nhanVienService.getListNhanVien();
@@ -48,5 +50,9 @@ export class DuanThemComponent {
     this.tien = 0;
     this.leader = 1;
     this.thanhvien = [];
+
+    this.router.navigate(['/duan']);
   }
+
+  
 }

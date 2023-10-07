@@ -73,4 +73,20 @@ export class DuAnService {
   addDuAn(duAn: DuAn) {
     this.listDuAn.push(duAn);
   }
+
+  updateDuAn(duAn: DuAn) {
+    const index = this.listDuAn.findIndex(item => item.id === duAn.id);
+    if (index !== -1) {
+      this.listDuAn[index] = duAn;
+    }
+  }
+
+  deleteDuAn(id: number) {
+    const index = this.listDuAn.findIndex(item => item.id === id);
+    if (index !== -1) {
+      this.listDuAn.splice(index, 1);
+    }
+  }
+  
+
 }
