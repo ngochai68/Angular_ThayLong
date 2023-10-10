@@ -1,36 +1,43 @@
-<div class="container">
-  <h4 class="bg-warning p-2 text-center">DANH SÁCH TASK</h4>
+<div class="container mt-4">
+  <h4 class="text-center">DANH SÁCH TASK</h4>
   <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <input class="form-control" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm task..." (keyup)="filteredTask()">
+    <div class="col-md-6 mx-auto">
+      <div class="form-group text-center">
+        <input class="form-control" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm task..." (keyup)="filteredTask()">
+      </div>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col-md-4" *ngFor="let task of listTask">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">{{ task.tenTask }}</h5>
-          <p class="card-text">{{ task.moTa }}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <strong>Priority:</strong>
-            <span [ngClass]="{'text-danger': task.priority === 1, 'text-warning': task.priority === 2, 'text-success': task.priority === 3}">
-              {{ task.priority === 1 ? 'Cao' : (task.priority === 2 ? 'Trung bình' : 'Thấp') }}
-            </span>
-          </li>
-          <li class="list-group-item">
-            <strong>Status:</strong>
-            <span [ngClass]="{'text-secondary': task.status === 0, 'text-primary': task.status === 1, 'text-success': task.status === 2}">
-              {{ task.status === 0 ? 'Chưa thực hiện' : (task.status === 1 ? 'Đang thực hiện' : 'Đã hoàn thành') }}
-            </span>
-          </li>
-        </ul>
-        <div class="card-body">
-          <p class="card-text">
-            Nhân viên: {{ getTenNhanVien(task.nhanvienID) }}<br />
-            Dự án: {{ getTenDuAn(task.duAnID) }}
-          </p>
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <div class="list-group">
+        <div *ngFor="let task of listTask" class="list-group-item mb-3 p-3">
+          <div>
+            <h5>{{ task.tenTask }}</h5>
+            <p>{{ task.moTa }}</p>
+          </div>
+          <ul class="list-unstyled">
+            <li>
+              <strong>Priority:</strong>
+              <span [ngClass]="{'text-danger': task.priority === 1, 'text-warning': task.priority === 2, 'text-success': task.priority === 3}">
+                {{ task.priority === 1 ? 'Cao' : (task.priority === 2 ? 'Trung bình' : 'Thấp') }}
+              </span>
+            </li>
+            <li>
+              <strong>Status:</strong>
+              <span [ngClass]="{'text-secondary': task.status === 0, 'text-primary': task.status === 1, 'text-success': task.status === 2}">
+                {{ task.status === 0 ? 'Chưa thực hiện' : (task.status === 1 ? 'Đang thực hiện' : 'Đã hoàn thành') }}
+              </span>
+            </li>
+          </ul>
+          <div>
+            <p>
+              Nhân viên: {{ getTenNhanVien(task.nhanvienID) }}<br />
+              Dự án: {{ getTenDuAn(task.duAnID) }}
+            </p>
+            <button class="btn btn-primary" >Sửa</button>
+            <button class="btn btn-danger" >Xóa</button>
+          </div>
         </div>
       </div>
     </div>

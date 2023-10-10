@@ -29,4 +29,12 @@ export class NvListComponent implements OnInit {
       );
     }
   }
+
+  deleteNhanVien(id: number): void {
+    if (confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')) {
+      this.nhanVienService.deleteNhanVien(id);
+      this.listNhanVien = this.nhanVienService.getListNhanVien();
+      this.listNhanVien2 = [...this.listNhanVien];
+    }
+  }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NhanVien } from './nhan-vien';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NhanVienService {
   private listNhanVien: NhanVien[] = [
@@ -47,18 +47,41 @@ export class NhanVienService {
       khuvuc: 'Trung',
     },
   ];
-  constructor() { }
+  constructor() {}
 
   getListNhanVien(): NhanVien[] {
     return this.listNhanVien;
   }
 
   getNhanVien(id: number): NhanVien | undefined {
-    return this.listNhanVien.find(nhanvien => nhanvien.id === id);
+    return this.listNhanVien.find((nhanvien) => nhanvien.id === id);
   }
 
   getTenNhanVien(id: number): string | undefined {
     const nhanvien = this.getNhanVien(id);
     return nhanvien ? `${nhanvien.ho} ${nhanvien.ten}` : undefined;
   }
+
+  themNhanVien(nhanVien: NhanVien) {
+    // Tạo một ID mới cho nhân viên (ví dụ: là số lớn nhất + 1)
+    const maxId = Math.max(...this.listNhanVien.map((nv) => nv.id));
+    const newId = maxId + 1;
+    nhanVien.id = newId;
+
+    // Thêm nhân viên vào danh sách
+    this.listNhanVien.push(nhanVien);
+  }
+
+  suaNhanVien(id: number, nhanVien: NhanVien) {
+    const index = this.listNhanVien.findIndex(nv => nv.id === id);
+    if (index !== -1) {
+      this.listNhanVien[index] = nhanVien;
+    }
+  }
+
+  deleteNhanVien(id: number): void {
+    this.listNhanVien = this.listNhanVien.filter((nv) => nv.id !== id);
+  }
+  
+
 }

@@ -16,19 +16,44 @@ export class DuanThemComponent {
   leader: number = 1; // Mặc định chọn Leader 1
   thanhvien: number[] = []; // Không mặc định chọn Thành viên
 
+  // Biến trạng thái lỗi
+  tenDuAnError: boolean = false;
+  ngayStartError: boolean = false;
+  tienError: boolean = false;
+  leaderError: boolean = false;
+  thanhvienError: boolean = false;
+
   // Khai báo danh sách nhân viên
   listNhanVien: NhanVien[] = [];
 
   constructor(
     private duAnService: DuAnService,
     private nhanVienService: NhanVienService,
-    private router: Router 
+    private router: Router
   ) {
     // Lấy danh sách nhân viên từ service
     this.listNhanVien = this.nhanVienService.getListNhanVien();
   }
 
   themDuAn() {
+    // Kiểm tra và thiết lập biến trạng thái lỗi khi cần thiết
+    this.tenDuAnError = this.tenDuAn.trim() === '';
+    this.ngayStartError = this.ngayStart.trim() === '';
+    this.tienError = isNaN(this.tien);
+    this.leaderError = this.leader === null;
+    this.thanhvienError = this.thanhvien.length === 0;
+
+    // Nếu có lỗi, không thực hiện thêm dự án và hiển thị thông báo lỗi
+    if (
+      this.tenDuAnError ||
+      this.ngayStartError ||
+      this.tienError ||
+      this.leaderError ||
+      this.thanhvienError
+    ) {
+      return;
+    }
+
     if (typeof this.leader === 'string') {
       this.leader = parseInt(this.leader, 10);
     }
@@ -53,6 +78,4 @@ export class DuanThemComponent {
 
     this.router.navigate(['/duan']);
   }
-
-  
 }

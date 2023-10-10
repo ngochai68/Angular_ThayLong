@@ -19,14 +19,21 @@ export class DuanSuaComponent implements OnInit {
   leader: number = 1;
   thanhvien: number[] = [];
 
+  // Biến trạng thái lỗi
+  tenDuAnError: boolean = false;
+  ngayStartError: boolean = false;
+  tienError: boolean = false;
+  leaderError: boolean = false;
+  thanhvienError: boolean = false;
+
   listNhanVien: NhanVien[] = [];
   duAn: DuAn | undefined;
 
   constructor(
     private duAnService: DuAnService,
     private nhanVienService: NhanVienService,
-    private route: ActivatedRoute,//Thêm ActivatedRoute
-    private router: Router 
+    private route: ActivatedRoute, //Thêm ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +58,22 @@ export class DuanSuaComponent implements OnInit {
   }
 
   suaDuAn() {
+    this.tenDuAnError = this.tenDuAn.trim() === '';
+    this.ngayStartError = this.ngayStart.trim() === '';
+    this.tienError = isNaN(this.tien);
+    this.leaderError = this.leader === null;
+    this.thanhvienError = this.thanhvien.length === 0;
+
+    if (
+      this.tenDuAnError ||
+      this.ngayStartError ||
+      this.tienError ||
+      this.leaderError ||
+      this.thanhvienError
+    ) {
+      return;
+    }
+
     if (typeof this.leader === 'string') {
       this.leader = parseInt(this.leader, 10);
     }
