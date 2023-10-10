@@ -71,6 +71,13 @@ export class DuAnService {
   }
 
   addDuAn(duAn: DuAn) {
+    // Tìm ID lớn nhất trong các dự án hiện có
+    const maxId = Math.max(...this.listDuAn.map((duAn) => duAn.id));
+
+    // Tạo một ID mới bằng cách thêm 1 vào ID lớn nhất
+    duAn.id = maxId + 1;
+
+
     this.listDuAn.push(duAn);
   }
 

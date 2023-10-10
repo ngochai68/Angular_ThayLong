@@ -1,1 +1,59 @@
-<p>task-sua works!</p>
+<div class="container mt-3">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5>SỬA TASK</h5>
+      </div>
+      <div class="card-body">
+        <form (submit)="updateTask()">
+          <div class="mb-3">
+            <label for="tenTask" class="form-label">Tên task</label>
+            <input type="text" class="form-control" id="tenTask" [(ngModel)]="task.tenTask" name="tenTask" required />
+            <div *ngIf="tenTaskError" class="text-danger">Tên task không được trống.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="moTa" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="moTa" [(ngModel)]="task.moTa" name="moTa" required></textarea>
+            <div *ngIf="moTaError" class="text-danger">Mô tả không được trống.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="duAnID" class="form-label">Dự án</label>
+            <select class="form-select" id="duAnID" [(ngModel)]="task.duAnID" name="duAnID" required>
+              <option *ngFor="let duAn of duAnList" [value]="duAn.id">{{ duAn.tenDuAn }}</option>
+            </select>
+            <div *ngIf="duAnIDError" class="text-danger">Vui lòng chọn dự án.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="nhanvienID" class="form-label">Người thực hiện</label>
+            <select class="form-select" id="nhanvienID" [(ngModel)]="task.nhanvienID" name="nhanvienID" required>
+              <option *ngFor="let nhanVien of nhanVienList" [value]="nhanVien.id">{{ nhanVien.ho + ' ' + nhanVien.ten }}</option>
+            </select>
+            <div *ngIf="nhanvienIDError" class="text-danger">Vui lòng chọn người thực hiện.</div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="priority" class="form-label">Độ ưu tiên</label>
+            <select class="form-select" id="priority" [(ngModel)]="task.priority" name="priority" required>
+              <option value="1">Cao</option>
+              <option value="2">Trung bình</option>
+              <option value="3">Thấp</option>
+            </select>
+          </div>
+  
+          <div class="mb-3">
+            <label for="status" class="form-label">Trạng thái</label>
+            <select class="form-select" id="status" [(ngModel)]="task.status" name="status" required>
+              <option value="0">Chưa thực hiện</option>
+              <option value="1">Đang thực hiện</option>
+              <option value="2">Đã hoàn thành</option>
+            </select>
+          </div>
+  
+          <button type="submit" class="btn btn-success">Lưu Task</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

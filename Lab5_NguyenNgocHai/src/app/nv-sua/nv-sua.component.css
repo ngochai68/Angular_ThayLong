@@ -16,7 +16,6 @@
   
   /* Định dạng form khi đã submit */
   .ng-submitted {
-    border: 2px solid #8E44AD; /* Màu viền tím đậm */
     padding: 10px;
     margin-bottom: 20px; /* Khoảng cách dưới form */
   }

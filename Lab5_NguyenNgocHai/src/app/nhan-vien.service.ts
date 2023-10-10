@@ -73,7 +73,7 @@ export class NhanVienService {
   }
 
   suaNhanVien(id: number, nhanVien: NhanVien) {
-    const index = this.listNhanVien.findIndex(nv => nv.id === id);
+    const index = this.listNhanVien.findIndex((nv) => nv.id === id);
     if (index !== -1) {
       this.listNhanVien[index] = nhanVien;
     }
@@ -82,6 +82,4 @@ export class NhanVienService {
   deleteNhanVien(id: number): void {
     this.listNhanVien = this.listNhanVien.filter((nv) => nv.id !== id);
   }
-  
-
 }

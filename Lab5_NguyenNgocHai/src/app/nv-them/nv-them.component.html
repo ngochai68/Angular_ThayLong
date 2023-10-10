@@ -30,7 +30,7 @@
           </div>
           <em *ngIf="nhanVienForm.get('phai')?.hasError('required') && nhanVienForm.get('phai')?.touched" class="text-danger"> Phái là trường bắt buộc </em>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label for="khuvuc">Khu Vực:</label>
           <select id="khuvuc" formControlName="khuvuc" required class="form-control">
             <option value="Bắc">Bắc</option>
@@ -39,8 +39,8 @@
           </select>
           <em *ngIf="nhanVienForm.get('khuvuc')?.hasError('required') && nhanVienForm.get('khuvuc')?.touched" class="text-danger"> Khu Vực là trường bắt buộc </em>
         </div>
-        <div class="form-group text-center">
-          <button type="submit" class="btn btn-primary">Thêm Nhân Viên</button>
+        <div class="form-group text-center ">
+          <button type="submit" class="btn btn-primary ">Thêm Nhân Viên</button>
         </div>
       </form>
     </div>

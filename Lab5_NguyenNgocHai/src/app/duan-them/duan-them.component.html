@@ -27,7 +27,7 @@
           </select>
           <div *ngIf="leaderError" class="text-danger">Vui lòng chọn Leader.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label for="thanhvien">Chọn nhân viên</label>
           <select multiple size="5" class="form-control" id="thanhvien" [(ngModel)]="thanhvien" name="thanhvien" required>
             <option *ngFor="let nhanvien of listNhanVien" [value]="nhanvien.id">{{ nhanvien.ho }} {{ nhanvien.ten }}</option>

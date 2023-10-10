@@ -35,8 +35,8 @@
               Nhân viên: {{ getTenNhanVien(task.nhanvienID) }}<br />
               Dự án: {{ getTenDuAn(task.duAnID) }}
             </p>
-            <button class="btn btn-primary" >Sửa</button>
-            <button class="btn btn-danger" >Xóa</button>
+            <button class="btn btn-primary" [routerLink]="['/task/sua', task.id]">Sửa</button>
+            <button class="btn btn-danger" (click)="deleteTask(task.id)">Xóa</button>
           </div>
         </div>
       </div>
