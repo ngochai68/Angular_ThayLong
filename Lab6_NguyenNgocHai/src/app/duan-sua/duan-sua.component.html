@@ -1,0 +1,52 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <h5>SỬA DỰ ÁN</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="suaDuAn()">
+        <div class="form-group">
+          <label for="id">ID Dự án</label>
+          <input type="number" class="form-control" id="id" [(ngModel)]="id" name="id" required readonly />
+        </div>
+        <div class="form-group">
+          <label for="tenDuAn">Tên dự án</label>
+          <input type="text" class="form-control" id="tenDuAn" [(ngModel)]="tenDuAn" name="tenDuAn" required />
+          <div *ngIf="tenDuAnError" class="text-danger">Tên dự án không được trống.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="ngayStart">Ngày Start</label>
+          <input type="date" class="form-control" id="ngayStart" [(ngModel)]="ngayStart" name="ngayStart" required />
+          <div *ngIf="ngayStartError" class="text-danger">Ngày Start không được trống.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="tien">Tiền</label>
+          <input type="number" class="form-control" id="tien" [(ngModel)]="tien" name="tien" required />
+          <div *ngIf="tienError" class="text-danger">Tiền phải là một số.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="leader">Leader</label>
+          <select class="form-control" id="leader" [(ngModel)]="leader" name="leader" required>
+            <option *ngFor="let nhanvien of listNhanVien" [value]="nhanvien.id">{{ nhanvien.ho }} {{ nhanvien.ten }}</option>
+          </select>
+          <div *ngIf="leaderError" class="text-danger">Vui lòng chọn Leader.</div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="thanhvien">Chọn nhân viên</label>
+          <select multiple size="5" class="form-control" id="thanhvien" [(ngModel)]="thanhvien" name="thanhvien" required>
+            <option *ngFor="let nhanvien of listNhanVien" [value]="nhanvien.id">{{ nhanvien.ho }} {{ nhanvien.ten }}</option>
+          </select>
+          <div *ngIf="thanhvienError" class="text-danger">Vui lòng chọn ít nhất một nhân viên.</div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
