@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DuAnService } from '../du-an.service';
-import { NhanVienService } from '../nhan-vien.service'; // Import service của nhân viên
+import { NhanVienService } from '../nhan-vien.service';
 import { NhanVien } from '../nhan-vien';
 import { Router } from '@angular/router';
 
@@ -10,72 +11,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./duan-them.component.css'],
 })
 export class DuanThemComponent {
-  tenDuAn: string = '';
-  ngayStart: string = '';
-  tien: number = 0;
-  leader: number = 1; // Mặc định chọn Leader 1
-  thanhvien: number[] = []; // Không mặc định chọn Thành viên
-
-  // Biến trạng thái lỗi
-  tenDuAnError: boolean = false;
-  ngayStartError: boolean = false;
-  tienError: boolean = false;
-  leaderError: boolean = false;
-  thanhvienError: boolean = false;
-
-  // Khai báo danh sách nhân viên
+  duAnForm: FormGroup;
   listNhanVien: NhanVien[] = [];
+  submitted: boolean = false;
 
-  constructor(
-    private duAnService: DuAnService,
-    private nhanVienService: NhanVienService,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private duAnService: DuAnService, private nhanVienService: NhanVienService, private router: Router) {
+    // Khởi tạo FormGroup và đặt trạng thái ban đầu
+    this.duAnForm = this.fb.group({
+      tenDuAn: ['', [Validators.required]],
+      ngayStart: ['', [Validators.required]],
+      tien: [, [Validators.required, Validators.min(1)]],
+      leader: [, [Validators.required]],
+      thanhvien: [[], [Validators.required]],
+    });
+
     // Lấy danh sách nhân viên từ service
-    this.listNhanVien = this.nhanVienService.getListNhanVien();
+    this.nhanVienService.getListNhanVien().subscribe((nhanviens) => {
+      this.listNhanVien = nhanviens;
+    });
   }
 
   themDuAn() {
+    this.submitted = true; // Đánh dấu form đã được nộp
+
     // Kiểm tra và thiết lập biến trạng thái lỗi khi cần thiết
-    this.tenDuAnError = this.tenDuAn.trim() === '';
-    this.ngayStartError = this.ngayStart.trim() === '';
-    this.tienError = isNaN(this.tien);
-    this.leaderError = this.leader === null;
-    this.thanhvienError = this.thanhvien.length === 0;
-
-    // Nếu có lỗi, không thực hiện thêm dự án và hiển thị thông báo lỗi
-    if (
-      this.tenDuAnError ||
-      this.ngayStartError ||
-      this.tienError ||
-      this.leaderError ||
-      this.thanhvienError
-    ) {
-      return;
-    }
-
-    if (typeof this.leader === 'string') {
-      this.leader = parseInt(this.leader, 10);
+    if (this.duAnForm.invalid) {
+      return; // Không xử lý nếu form không hợp lệ
     }
 
     const newDuAn = {
-      id: this.duAnService.getDuAnList().length + 1,
-      tenDuAn: this.tenDuAn,
-      ngayStart: this.ngayStart,
-      tien: this.tien,
-      leader: this.leader,
-      thanhvien: this.thanhvien,
+      tenDuAn: this.duAnForm.get('tenDuAn')?.value,
+      ngayStart: this.duAnForm.get('ngayStart')?.value,
+      tien: this.duAnForm.get('tien')?.value,
+      leader: this.duAnForm.get('leader')?.value,
+      thanhvien: this.duAnForm.get('thanhvien')?.value,
     };
 
-    this.duAnService.addDuAn(newDuAn);
-
-    // Sau khi thêm dự án, xóa dữ liệu trong form
-    this.tenDuAn = '';
-    this.ngayStart = '';
-    this.tien = 0;
-    this.leader = 1;
-    this.thanhvien = [];
-
-    this.router.navigate(['/duan']);
+    // Thêm dự án mới và xử lý sau khi thêm
+    this.duAnService.addDuAn(newDuAn).subscribe(() => {
+      this.router.navigate(['/duan']);
+    });
   }
 }

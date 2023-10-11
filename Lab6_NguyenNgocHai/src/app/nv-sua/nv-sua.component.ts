@@ -30,20 +30,19 @@ export class NvSuaComponent implements OnInit {
   }
 
   loadNhanVienData() {
-    const nhanVien = this.nhanVienService.getNhanVien(this.nhanVienId);
-    if (nhanVien) {
-      this.nhanVienForm.patchValue(nhanVien);
-
-      const ngaysinh = new Date(nhanVien.ngaysinh);
-      this.nhanVienForm.get('ngaysinh')?.setValue(ngaysinh.toISOString().substring(0, 10));
-      
-      
-      
-    } else {
-      // Xử lý trường hợp nhân viên không tồn tại
-      this.router.navigate(['/not-found']); // Điều hướng đến trang not-found hoặc xử lý khác tùy ý
-    }
+    this.nhanVienService.getNhanVien(this.nhanVienId).subscribe((nhanVien) => {
+      if (nhanVien) {
+        this.nhanVienForm.patchValue(nhanVien);
+  
+        const ngaysinh = new Date(nhanVien.ngaysinh);
+        this.nhanVienForm.get('ngaysinh')?.setValue(ngaysinh.toISOString().substring(0, 10));
+      } else {
+        // Xử lý trường hợp nhân viên không tồn tại
+        this.router.navigate(['/not-found']);
+      }
+    });
   }
+  
 
   suaNhanVien() {
     if (this.nhanVienForm.valid) {

@@ -15,8 +15,10 @@ export class DuanListComponent implements OnInit {
   constructor(private duAnService: DuAnService) {} 
 
   ngOnInit(): void {
-    this.listDuAn = this.duAnService.getDuAnList();
-    this.listDuAn2 = [...this.listDuAn];
+    this.duAnService.getDuAnList().subscribe((duAnList) => {
+      this.listDuAn = duAnList;
+      this.listDuAn2 = [...this.listDuAn];
+    });
   }
 
   filteredDuAn() {
@@ -26,11 +28,14 @@ export class DuanListComponent implements OnInit {
     );
   }
 
-  deleteDuAn(id: number) {
-    if (confirm("Bạn có chắc chắn muốn xóa dự án này không?")) {
-      this.duAnService.deleteDuAn(id);
-      // Sau khi xóa, cập nhật lại danh sách dự án
-      this.listDuAn = this.listDuAn.filter(da => da.id !== id);
+  deleteDuAn(id: number | undefined) {
+    if (id !== undefined) {
+      if (confirm("Bạn có chắc chắn muốn xóa dự án này không?")) {
+        this.duAnService.deleteDuAn(id).subscribe(() => {
+          // Sau khi xóa, cập nhật lại danh sách dự án
+          this.listDuAn = this.listDuAn.filter(da => da.id !== id);
+        });
+      }
     }
   }
   

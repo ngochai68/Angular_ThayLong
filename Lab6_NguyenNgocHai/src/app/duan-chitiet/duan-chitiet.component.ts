@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DuAnService } from '../du-an.service';
 import { DuAn } from '../du-an';
 import { NhanVienService } from '../nhan-vien.service';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-duan-chitiet',
@@ -23,15 +25,36 @@ export class DuanChitietComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const duAnId = Number(params.get('id'));
-      this.duAn = this.duAnService.getDuAn(duAnId);
 
-      if (this.duAn) {
-        this.thanhVienNames = this.duAn.thanhvien.map((memberId) =>
-          this.nhanVienService.getTenNhanVien(memberId) || ''
-        );
+      this.duAnService.getDuAn(duAnId).pipe(
+        catchError((error) => {
+          return of(null); // Trả về giá trị null trong trường hợp lỗi 404
+        })
+      ).subscribe((duAn) => {
+        if (duAn) {
+          this.duAn = duAn;
 
-        this.leaderName = this.nhanVienService.getTenNhanVien(this.duAn.leader) || '';
-      }
+          const memberObservables = this.duAn.thanhvien.map((memberId) =>
+            this.nhanVienService.getNhanVien(memberId).pipe(
+              catchError((error) => {
+                return of({ ho: 'Không', ten: 'tìm thấy' }); // Trả về giá trị mặc định trong trường hợp lỗi 404
+              })
+            )
+          );
+
+          forkJoin(memberObservables).subscribe((names) => {
+            this.thanhVienNames = names.map(name => name.ho + ' ' + name.ten);
+          });
+
+          this.nhanVienService.getNhanVien(this.duAn.leader).pipe(
+            catchError((error) => {
+              return of({ ho: 'Không', ten: 'tìm thấy' }); // Trả về giá trị mặc định trong trường hợp lỗi 404
+            })
+          ).subscribe((leader) => {
+            this.leaderName = leader.ho + ' ' + leader.ten;
+          });
+        }
+      });
     });
   }
 }

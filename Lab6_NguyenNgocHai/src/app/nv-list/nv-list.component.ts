@@ -12,11 +12,13 @@ export class NvListComponent implements OnInit {
   listNhanVien: NhanVien[] = [];
   listNhanVien2: NhanVien[] = [];
 
-  constructor(private nhanVienService: NhanVienService) {} 
+  constructor(private nhanVienService: NhanVienService) {}
 
   ngOnInit(): void {
-    this.listNhanVien = this.nhanVienService.getListNhanVien();
-    this.listNhanVien2 = [...this.listNhanVien];
+    this.nhanVienService.getListNhanVien().subscribe((nhanviens) => {
+      this.listNhanVien = nhanviens;
+      this.listNhanVien2 = [...this.listNhanVien];
+    });
   }
 
   filteredNhanVien() {
@@ -32,9 +34,10 @@ export class NvListComponent implements OnInit {
 
   deleteNhanVien(id: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')) {
-      this.nhanVienService.deleteNhanVien(id);
-      this.listNhanVien = this.nhanVienService.getListNhanVien();
-      this.listNhanVien2 = [...this.listNhanVien];
+      this.nhanVienService.xoaNhanVien(id).subscribe(() => {
+        this.listNhanVien = this.listNhanVien.filter((nv) => nv.id !== id);
+        this.listNhanVien2 = [...this.listNhanVien];
+      });
     }
   }
 }

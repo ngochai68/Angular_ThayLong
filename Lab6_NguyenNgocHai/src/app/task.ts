@@ -6,4 +6,6 @@ export interface Task {
   nhanvienID: number;
   priority: number;
   status: number;
+  tenDuAn?: string; 
+  tenNhanVien?: string; 
 }

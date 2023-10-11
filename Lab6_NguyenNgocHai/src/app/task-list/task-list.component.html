@@ -32,8 +32,8 @@
           </ul>
           <div>
             <p>
-              Nhân viên: {{ getTenNhanVien(task.nhanvienID) }}<br />
-              Dự án: {{ getTenDuAn(task.duAnID) }}
+              Nhân viên: {{ task.tenNhanVien }}<br />
+              Dự án: {{ task.tenDuAn }}
             </p>
             <button class="btn btn-primary" [routerLink]="['/task/sua', task.id]">Sửa</button>
             <button class="btn btn-danger" (click)="deleteTask(task.id)">Xóa</button>

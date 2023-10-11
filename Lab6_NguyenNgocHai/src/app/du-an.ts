@@ -1,5 +1,5 @@
 export interface DuAn {
-  id: number;
+  id?: number;
   tenDuAn: string;
   ngayStart: string;
   tien: number;

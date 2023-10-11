@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from '../task';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../task.service';
 import { DuAnService } from '../du-an.service';
 import { NhanVienService } from '../nhan-vien.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-task-sua',
@@ -11,67 +11,74 @@ import { NhanVienService } from '../nhan-vien.service';
   styleUrls: ['./task-sua.component.css'],
 })
 export class TaskSuaComponent implements OnInit {
-  task: Task = {
-    id: 0,
-    tenTask: '',
-    moTa: '',
-    duAnID: 0,
-    nhanvienID: 0,
-    priority: 1,
-    status: 0,
-  };
-
+  taskForm: FormGroup;
   duAnList: any[] = [];
   nhanVienList: any[] = [];
-
-  tenTaskError: boolean = false;
-  moTaError: boolean = false;
-  duAnIDError: boolean = false;
-  nhanvienIDError: boolean = false;
+  submitted = false;
+  taskId: number = 0;
+    
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    private fb: FormBuilder,
     private taskService: TaskService,
     private duAnService: DuAnService,
-    private nhanVienService: NhanVienService
-  ) {}
-
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const taskId = +params['id'];
-      this.task = this.taskService.getTask(taskId) ?? {
-        id: 0,
-        tenTask: '',
-        moTa: '',
-        duAnID: 0,
-        nhanvienID: 0,
-        priority: 1,
-        status: 0,
-      };
-  
-      this.duAnList = this.duAnService.getDuAnList();
-      this.nhanVienList = this.nhanVienService.getListNhanVien();
+    private nhanVienService: NhanVienService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.taskForm = this.fb.group({
+      tenTask: ['', [Validators.required]],
+      moTa: ['', [Validators.required]],
+      duAnID: [, [Validators.required]],
+      nhanvienID: [, [Validators.required]],
+      priority: [, [Validators.required]],
+      status: [, [Validators.required]],
     });
   }
-  
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.taskId = +params['id'];
+      this.loadTaskDetails(this.taskId);
+    });
+
+    this.duAnService.getDuAnList().subscribe((duAnList) => {
+      this.duAnList = duAnList;
+    });
+
+    this.nhanVienService.getListNhanVien().subscribe((nhanVienList) => {
+      this.nhanVienList = nhanVienList;
+    });
+  }
+
+  loadTaskDetails(id: number) {
+    this.taskService.getTask(id).subscribe((task) => {
+      this.taskForm.setValue({
+        tenTask: task.tenTask,
+        moTa: task.moTa,
+        duAnID: task.duAnID,
+        nhanvienID: task.nhanvienID,
+        priority: task.priority,
+        status: task.status,
+      });
+    });
+  }
 
   updateTask() {
-    this.tenTaskError = this.task.tenTask.trim() === '';
-    this.moTaError = this.task.moTa.trim() === '';
-    this.duAnIDError = this.task.duAnID === 0;
-    this.nhanvienIDError = this.task.nhanvienID === 0;
+    this.submitted = true;
 
-    if (this.tenTaskError || this.moTaError || this.duAnIDError || this.nhanvienIDError) {
+    if (this.taskForm.invalid) {
+      this.taskForm.markAllAsTouched();
       return;
     }
 
-    this.task.nhanvienID = +this.task.nhanvienID;
-    this.task.duAnID = +this.task.duAnID;
+    const updatedTask = this.taskForm.value;
+    updatedTask.id = this.taskId;
+    updatedTask.priority = +updatedTask.priority;
+    updatedTask.status = +updatedTask.status;
 
-    // Thực hiện cập nhật task
-    this.taskService.updateTask(this.task);
-
-    this.router.navigate(['/task']);
+    this.taskService.updateTask(updatedTask).subscribe(() => {
+      this.router.navigate(['/task']);
+    });
   }
 }
