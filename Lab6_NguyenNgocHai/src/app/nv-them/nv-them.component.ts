@@ -6,52 +6,32 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nv-them',
   templateUrl: './nv-them.component.html',
-  styleUrls: ['./nv-them.component.css']
+  styleUrls: ['./nv-them.component.css'],
 })
 export class NvThemComponent {
-  nhanVienForm: FormGroup;
+  nhanVienForm: FormGroup; // FormGroup để quản lý dữ liệu nhập trong form
+  submitted = false; // Biến kiểm tra xem form đã được nộp chưa
 
   constructor(private fb: FormBuilder, private nhanVienService: NhanVienService, private router: Router) {
+    // Khởi tạo FormGroup và đặt trạng thái ban đầu
     this.nhanVienForm = this.fb.group({
-      ho: ['', Validators.required],
-      ten: ['', Validators.required],
-      ngaysinh: ['', Validators.required],
-      phai: [true, Validators.required],
-      khuvuc: ['Bắc', Validators.required]
+      ho: ['', Validators.required], // Trường họ (bắt buộc)
+      ten: ['', Validators.required], // Trường tên (bắt buộc)
+      ngaysinh: ['', Validators.required], // Trường ngày sinh (bắt buộc)
+      phai: [, Validators.required], // Trường giới tính (bắt buộc)
+      khuvuc: ['', Validators.required], // Trường khu vực (bắt buộc)
     });
   }
 
   themNhanVien() {
+    this.submitted = true;
+
     if (this.nhanVienForm.valid) {
-      // Chuyển giá trị 'true' hoặc 'false' thành kiểu boolean
-      const phaiValue = this.nhanVienForm.get('phai')?.value === 'true' ? true : false;
-
-      // Lấy giá trị từ form và thêm nhân viên vào danh sách
-      const nhanVien = { ...this.nhanVienForm.value, phai: phaiValue };
-      this.nhanVienService.themNhanVien(nhanVien);
-
-      // Sau khi thêm thành công, xóa dữ liệu trong form
-      this.nhanVienForm.reset({
-        phai: true,
-        khuvuc: 'Bắc'
+      const nhanVien = this.nhanVienForm.value;
+      // Gọi service để thêm thông tin nhân viên mới và sau đó chuyển hướng đến trang danh sách nhân viên
+      this.nhanVienService.themNhanVien(nhanVien).subscribe(() => {
+        this.router.navigate(['/nhanvien']);
       });
-
-      this.router.navigate(['/nhanvien']);
-    } else {
-      // Đánh dấu tất cả các trường đã được chạm để hiển thị thông báo lỗi
-      this.markFormGroupTouched(this.nhanVienForm);
     }
-
-
-  }
-
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
-    });
   }
 }

@@ -11,21 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./duan-them.component.css'],
 })
 export class DuanThemComponent {
-  duAnForm: FormGroup;
-  listNhanVien: NhanVien[] = [];
-  submitted: boolean = false;
+  duAnForm: FormGroup; // FormGroup cho biểu mẫu thêm dự án
+  listNhanVien: NhanVien[] = []; // Danh sách nhân viên
+  submitted: boolean = false; // Biến để theo dõi trạng thái đã nộp biểu mẫu hay chưa
 
   constructor(private fb: FormBuilder, private duAnService: DuAnService, private nhanVienService: NhanVienService, private router: Router) {
     // Khởi tạo FormGroup và đặt trạng thái ban đầu
     this.duAnForm = this.fb.group({
-      tenDuAn: ['', [Validators.required]],
-      ngayStart: ['', [Validators.required]],
-      tien: [, [Validators.required, Validators.min(1)]],
-      leader: [, [Validators.required]],
-      thanhvien: [[], [Validators.required]],
+      tenDuAn: ['', [Validators.required]], // Trường tên dự án với yêu cầu bắt buộc
+      ngayStart: ['', [Validators.required]], // Trường ngày bắt đầu với yêu cầu bắt buộc
+      tien: [, [Validators.required, Validators.min(1)]], // Trường số tiền với yêu cầu bắt buộc và giá trị tối thiểu là 1
+      leader: [, [Validators.required]], // Trường người chịu trách nhiệm (leader) với yêu cầu bắt buộc
+      thanhvien: [[], [Validators.required]], // Trường danh sách thành viên với yêu cầu bắt buộc
     });
 
-    // Lấy danh sách nhân viên từ service
+    // Lấy danh sách nhân viên từ service và gán vào biến listNhanVien
     this.nhanVienService.getListNhanVien().subscribe((nhanviens) => {
       this.listNhanVien = nhanviens;
     });
@@ -39,17 +39,18 @@ export class DuanThemComponent {
       return; // Không xử lý nếu form không hợp lệ
     }
 
+    // Tạo đối tượng mới dự án từ dữ liệu trong biểu mẫu
     const newDuAn = {
       tenDuAn: this.duAnForm.get('tenDuAn')?.value,
       ngayStart: this.duAnForm.get('ngayStart')?.value,
       tien: this.duAnForm.get('tien')?.value,
-      leader: this.duAnForm.get('leader')?.value,
+      leader: parseInt(this.duAnForm.get('leader')?.value, 10),
       thanhvien: this.duAnForm.get('thanhvien')?.value,
     };
 
-    // Thêm dự án mới và xử lý sau khi thêm
+    // Gọi service để thêm dự án mới và xử lý sau khi thêm
     this.duAnService.addDuAn(newDuAn).subscribe(() => {
-      this.router.navigate(['/duan']);
+      this.router.navigate(['/duan']); // Chuyển hướng sau khi thêm dự án thành công
     });
   }
 }

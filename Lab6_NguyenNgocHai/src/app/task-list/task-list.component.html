@@ -29,14 +29,16 @@
                 {{ task.status === 0 ? 'Chưa thực hiện' : (task.status === 1 ? 'Đang thực hiện' : 'Đã hoàn thành') }}
               </span>
             </li>
+            <li>
+              <strong>Dự án:</strong> {{ getTenDuAn(task.duAnID) }}
+            </li>
+            <li>
+              <strong>Nhân viên:</strong> {{ getTenNhanVien(task.nhanvienID) }}
+            </li>
           </ul>
           <div>
-            <p>
-              Nhân viên: {{ task.tenNhanVien }}<br />
-              Dự án: {{ task.tenDuAn }}
-            </p>
             <button class="btn btn-primary" [routerLink]="['/task/sua', task.id]">Sửa</button>
-            <button class="btn btn-danger" (click)="deleteTask(task.id)">Xóa</button>
+            <button class="btn btn-danger" (click)="confirmDelete(task.id)">Xóa</button>
           </div>
         </div>
       </div>

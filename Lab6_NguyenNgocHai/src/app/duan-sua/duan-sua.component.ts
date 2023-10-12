@@ -5,6 +5,8 @@ import { NhanVienService } from '../nhan-vien.service';
 import { NhanVien } from '../nhan-vien';
 import { DuAn } from '../du-an';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError, switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-duan-sua',
@@ -33,45 +35,56 @@ export class DuanSuaComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
 
     // Lấy danh sách nhân viên từ service
-    this.nhanVienService.getListNhanVien().subscribe((nhanviens) => {
-      this.listNhanVien = nhanviens;
-    });
+    const nhanVienListObservable = this.nhanVienService.getListNhanVien();
 
     if (idParam !== null) {
       const id = +idParam;
 
-      this.duAnService.getDuAn(id).subscribe((duAn) => {
-        this.duAn = duAn;
+      // Lấy dự án từ service
+      const duAnObservable = this.duAnService.getDuAn(id);
 
-        // Đổ dữ liệu dự án vào form
-        this.duAnForm.setValue({
-          id: duAn.id,
-          tenDuAn: duAn.tenDuAn,
-          ngayStart: duAn.ngayStart,
-          tien: duAn.tien,
-          leader: duAn.leader,
-          thanhvien: duAn.thanhvien,
+      forkJoin([nhanVienListObservable, duAnObservable])
+        .pipe(
+          switchMap(([nhanviens, duAn]) => {
+            this.listNhanVien = nhanviens;
+            this.duAn = duAn;
+
+            // Đổ dữ liệu dự án vào form
+            this.duAnForm.setValue({
+              id: duAn.id,
+              tenDuAn: duAn.tenDuAn,
+              ngayStart: duAn.ngayStart,
+              tien: duAn.tien,
+              leader: duAn.leader,
+              thanhvien: duAn.thanhvien,
+            });
+
+            // Kiểm tra leader trong danh sách listNhanVien
+            const leaderExists = this.listNhanVien.some((nhanvien) => nhanvien.id === duAn.leader);
+
+            if (!leaderExists) {
+              // Xóa giá trị leader khỏi form
+              this.duAnForm.get('leader')?.setValue(null);
+            }
+
+            // Kiểm tra thanhvien trong danh sách listNhanVien
+            const validThanhvien = duAn.thanhvien.filter((thanhvienId) => this.listNhanVien.some((nhanvien) => nhanvien.id === thanhvienId));
+
+            if (validThanhvien.length !== duAn.thanhvien.length) {
+              // Xử lý trường hợp có thành viên không tồn tại trong danh sách nhân viên
+
+              // Cập nhật giá trị của thanhvien với danh sách thành viên hợp lệ
+              this.duAnForm.get('thanhvien')?.setValue(validThanhvien);
+            }
+
+            return of(null);
+          })
+        )
+        .subscribe(() => {
+          // Xử lý sau khi đã tải xong dữ liệu
         });
-
-        // Kiểm tra leader trong danh sách listNhanVien
-        const leaderExists = this.listNhanVien.some((nhanvien) => nhanvien.id === duAn.leader);
-
-        if (!leaderExists) {
-          // Xóa giá trị leader khỏi form
-          this.duAnForm.get('leader')?.setValue(null);
-        }
-
-        // Kiểm tra thanhvien trong danh sách listNhanVien
-        const validThanhvien = duAn.thanhvien.filter((thanhvienId) => this.listNhanVien.some((nhanvien) => nhanvien.id === thanhvienId));
-
-        if (validThanhvien.length !== duAn.thanhvien.length) {
-          // Xử lý trường hợp có thành viên không tồn tại trong danh sách nhân viên
-
-          // Cập nhật giá trị của thanhvien với danh sách thành viên hợp lệ
-          this.duAnForm.get('thanhvien')?.setValue(validThanhvien);
-        }
-      });
     } else {
+      // Xử lý trường hợp 'id' không
       // Xử lý trường hợp 'id' không tồn tại hoặc có giá trị 'null'
     }
   }
@@ -89,7 +102,7 @@ export class DuanSuaComponent implements OnInit {
       tenDuAn: this.duAnForm.get('tenDuAn')?.value,
       ngayStart: this.duAnForm.get('ngayStart')?.value,
       tien: this.duAnForm.get('tien')?.value,
-      leader: this.duAnForm.get('leader')?.value,
+      leader: parseInt(this.duAnForm.get('leader')?.value, 10),
       thanhvien: this.duAnForm.get('thanhvien')?.value,
     };
 

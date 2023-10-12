@@ -1,51 +1,48 @@
 <div class="container mt-3">
-    <div class="card">
-      <div class="card-header bg-primary text-white">
-        <h5>CHỈNH SỬA NHÂN VIÊN</h5>
-      </div>
-      <div class="card-body">
-        <form [formGroup]="nhanVienForm" (ngSubmit)="suaNhanVien()">
-          <div class="form-group">
-            <label for="ho">Họ:</label>
-            <input type="text" id="ho" formControlName="ho" required class="form-control" />
-            <em *ngIf="nhanVienForm.get('ho')?.hasError('required') && nhanVienForm.get('ho')?.touched" class="text-danger"> Họ là trường bắt buộc </em>
+  <div class="card">
+    <div class="card-header bg-warning text-white">
+      <h5>SỬA NHÂN VIÊN</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="nhanVienForm" (ngSubmit)="suaNhanVien()">
+        <div class="form-group">
+          <label for="ho">Họ:</label>
+          <input type="text" id="ho" formControlName="ho" class="form-control" />
+          <div *ngIf="submitted && nhanVienForm.get('ho')?.invalid" class="text-danger"> Họ là trường bắt buộc </div>
+        </div>
+        <div class="form-group">
+          <label for="ten">Tên:</label>
+          <input type="text" id="ten" formControlName="ten" class="form-control" />
+          <div *ngIf="submitted && nhanVienForm.get('ten')?.invalid" class="text-danger"> Tên là trường bắt buộc </div>
+        </div>
+        <div class="form-group">
+          <label for="ngaysinh">Ngày Sinh:</label>
+          <input type="date" id="ngaysinh" formControlName="ngaysinh" class="form-control" />
+          <div *ngIf="submitted && nhanVienForm.get('ngaysinh')?.invalid" class="text-danger"> Ngày Sinh là trường bắt buộc </div>
+        </div>
+        <div class="form-group">
+          <label>Phái:</label>
+          <div>
+            <input type="radio" formControlName="phai" [value]="true" id="nam" />
+            <label for="nam" class="mr-2">Nam</label>
+            <input type="radio" formControlName="phai" [value]="false" id="nu" />
+            <label for="nu">Nữ</label>
           </div>
-          <div class="form-group">
-            <label for="ten">Tên:</label>
-            <input type="text" id="ten" formControlName="ten" required class="form-control" />
-            <em *ngIf="nhanVienForm.get('ten')?.hasError('required') && nhanVienForm.get('ten')?.touched" class="text-danger"> Tên là trường bắt buộc </em>
-          </div>
-          <div class="form-group">
-            <label for="ngaysinh">Ngày Sinh:</label>
-            <input type="date" id="ngaysinh" formControlName="ngaysinh" required class="form-control" />
-            <em *ngIf="nhanVienForm.get('ngaysinh')?.hasError('required') && nhanVienForm.get('ngaysinh')?.touched" class="text-danger"> Ngày Sinh là trường bắt buộc </em>
-          </div>
-          <div class="form-group">
-            <label>Phái:</label>
-            <div>
-              <input type="radio" formControlName="phai" [value]="true" id="nam" [checked]="nhanVienForm.get('phai')?.value === true" />
-              <label for="nam" class="mr-2">Nam</label>
-              <input type="radio" formControlName="phai" [value]="false" id="nu" [checked]="nhanVienForm.get('phai')?.value === false" />
-              <label for="nu">Nữ</label>
-            </div>
-            <em *ngIf="nhanVienForm.get('phai')?.hasError('required') && nhanVienForm.get('phai')?.touched" class="text-danger"> Phái là trường bắt buộc </em>
-          </div>
-          
-                            
-          <div class="form-group mb-3">
-            <label for="khuvuc">Khu Vực:</label>
-            <select id="khuvuc" formControlName="khuvuc" required class="form-control">
-              <option value="Bắc">Bắc</option>
-              <option value="Nam">Nam</option>
-              <option value="Trung">Trung</option>
-            </select>
-            <em *ngIf="nhanVienForm.get('khuvuc')?.hasError('required') && nhanVienForm.get('khuvuc')?.touched" class="text-danger"> Khu Vực là trường bắt buộc </em>
-          </div>
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Cập Nhật Nhân Viên</button>
-          </div>
-        </form>
-      </div>
+          <div *ngIf="submitted && nhanVienForm.get('phai')?.invalid" class="text-danger"> Phái là trường bắt buộc </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="khuvuc">Khu Vực:</label>
+          <select id="khuvuc" formControlName="khuvuc" class="form-control">
+            <option value="Bắc">Bắc</option>
+            <option value="Nam">Nam</option>
+            <option value="Trung">Trung</option>
+          </select>
+          <div *ngIf="submitted && nhanVienForm.get('khuvuc')?.invalid" class="text-danger"> Khu Vực là trường bắt buộc </div>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+        </div>
+      </form>
     </div>
   </div>
-  
+</div>
