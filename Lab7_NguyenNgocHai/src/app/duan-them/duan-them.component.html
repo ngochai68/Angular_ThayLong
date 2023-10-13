@@ -1,0 +1,44 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header bg-warning text-white">
+      <h5>THÊM DỰ ÁN</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="duAnForm" (ngSubmit)="themDuAn()">
+        <div class="form-group">
+          <label for="tenDuAn">Tên dự án</label>
+          <input type="text" class="form-control" id="tenDuAn" formControlName="tenDuAn" />
+          <div *ngIf="submitted && duAnForm.get('tenDuAn')?.invalid" class="text-danger">Tên dự án không được trống.</div>
+        </div>
+        <div class="form-group">
+          <label for="ngayStart">Ngày Start</label>
+          <input type="date" class="form-control" id="ngayStart" formControlName="ngayStart" />
+          <div *ngIf="submitted && duAnForm.get('ngayStart')?.invalid" class="text-danger">Vui lòng chọn ngày Start.</div>
+        </div>
+        <div class="form-group">
+          <label for="tien">Tiền</label>
+          <input type="number" class="form-control" id="tien" formControlName="tien" />
+          <div *ngIf="submitted && duAnForm.get('tien')?.invalid" class="text-danger">Tiền không được trống và phải lớn hơn 0.</div>
+        </div>
+        <div class="form-group">
+          <label for="leader">Leader</label>
+          <select class="form-control" id="leader" formControlName="leader">
+            <option *ngFor="let nhanvien of listNhanVien" [value]="nhanvien.id">{{ nhanvien.ho }} {{ nhanvien.ten }}</option>
+          </select>
+          <div *ngIf="submitted && duAnForm.get('leader')?.invalid" class="text-danger">Vui lòng chọn Leader.</div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="thanhvien">Chọn nhân viên</label>
+          <select multiple size="5" class="form-control" id="thanhvien" formControlName="thanhvien">
+            <option *ngFor="let nhanvien of listNhanVien" [value]="nhanvien.id">{{ nhanvien.ho }} {{ nhanvien.ten }}</option>
+          </select>
+          <div *ngIf="submitted && duAnForm.get('thanhvien')?.invalid" class="text-danger">Vui lòng chọn ít nhất một nhân viên.</div>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary">Thêm dự án</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

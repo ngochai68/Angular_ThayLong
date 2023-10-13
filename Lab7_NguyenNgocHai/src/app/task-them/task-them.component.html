@@ -1,0 +1,72 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header bg-warning text-white">
+      <h5>THÊM TASK</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+        <div class="mb-3">
+          <label for="tenTask" class="form-label">Tên task</label>
+          <input type="text" class="form-control" id="tenTask" formControlName="tenTask" />
+          <div class="text-danger" *ngIf="submitted && taskForm.get('tenTask')?.invalid">
+            Tên task không được trống.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="moTa" class="form-label">Mô tả</label>
+          <textarea class="form-control" id="moTa" formControlName="moTa"></textarea>
+          <div class="text-danger" *ngIf="submitted && taskForm.get('moTa')?.invalid">
+            Mô tả không được trống.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="duAnID" class="form-label">Dự án</label>
+          <select class="form-select" id="duAnID" formControlName="duAnID">
+            <option *ngFor="let duAn of duAnList" [value]="duAn.id">{{ duAn.tenDuAn }}</option>
+          </select>
+          <div class="text-danger" *ngIf="submitted && taskForm.get('duAnID')?.invalid">
+            Vui lòng chọn dự án.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="nhanvienID" class="form-label">Người thực hiện</label>
+          <select class="form-select" id="nhanvienID" formControlName="nhanvienID">
+            <option *ngFor="let nhanVien of nhanVienList" [value]="nhanVien.id">{{ nhanVien.ho + ' ' + nhanVien.ten }}</option>
+          </select>
+          <div class="text-danger" *ngIf="submitted && taskForm.get('nhanvienID')?.invalid">
+            Vui lòng chọn người thực hiện.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="priority" class="form-label">Độ ưu tiên</label>
+          <select class="form-select" id="priority" formControlName="priority">
+            <option [value]="1">Cao</option>
+            <option [value]="2">Trung bình</option>
+            <option [value]="3">Thấp</option>
+          </select>
+          <div class="text-danger" *ngIf="submitted && taskForm.get('priority')?.invalid">
+            Vui lòng chọn Độ ưu tiên.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="status" class="form-label">Trạng thái</label>
+          <select class="form-select" id="status" formControlName="status">
+            <option [value]="0">Chưa thực hiện</option>
+            <option [value]="1">Đang thực hiện</option>
+            <option [value]="2">Đã hoàn thành</option>
+          </select>
+          <div class="text-danger" *ngIf="submitted && taskForm.get('status')?.invalid">
+            Vui lòng chọn Trạng thái.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm Task</button>
+      </form>
+    </div>
+  </div>
+</div>

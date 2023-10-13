@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2 class="text-center">DANH SÁCH NHÂN VIÊN</h2>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <input class="form-control" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm nhân viên..." (keyup)="filteredNhanVien()">
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped mt-3">
+      <caption align="top" class="bg-warning p-2 text-center">
+        DANH SÁCH NHÂN VIÊN
+      </caption>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Họ và tên</th>
+          <th>Ngày sinh</th>
+          <th>Phái</th>
+          <th>Khu vực</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let nv of listNhanVien">
+          <td>{{ nv.id }}</td>
+          <td>{{ nv.ho }} {{ nv.ten }}</td>
+          <td>{{ nv.ngaysinh | date:'dd/MM/yyyy' }}</td>
+          <td>{{ nv.phai === true ? 'Nam' : 'Nữ' }}</td>
+          <td>{{ nv.khuvuc }}</td>
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/nhanvien/sua', nv.id]">Sửa</button>
+            <button class="btn btn-danger" (click)="deleteNhanVien(nv.id)">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

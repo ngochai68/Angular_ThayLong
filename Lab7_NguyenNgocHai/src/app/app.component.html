@@ -1,0 +1,71 @@
+<div class="container">
+  <nav class="thanhmenu bg-success" style="height: 60px">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-success">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Quản lý dự án Fpoly</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Bảng điều khiển</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Giới thiệu</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Dự Án </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#" routerLink="duan/them">Thêm dự án</a></li>
+                <li><a class="dropdown-item" href="#" routerLink="duan/">Danh sách dự án</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Task </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#" routerLink="task/them">Thêm Task</a></li>
+                <li><a class="dropdown-item" href="#" routerLink="task/">Danh sách Task</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Nhân viên </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#" routerLink="nhanvien/them">Thêm Nhân viên</a></li>
+                <li>
+                  <a class="dropdown-item" href="#" routerLink="nhanvien/">Danh sách nhân viên</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Từ khóa" aria-label="Search" />
+            <button class="btn btn-warning btn-outline-success" type="submit">Tìm</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </nav>
+  <nav class="bg-light p-2">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item active" aria-current="page" routerLink="/">Trang chủ</li>
+      <li class="breadcrumb-item" aria-current="page" routerLink="duan/">Dự án</li>
+    </ol>
+  </nav>
+  <main class="d-flex" style="min-height: 450px">
+    <aside class="col-md-3 bg-secondary" id="cottrai"></aside>
+    <article class="col-md-6 bg-info" id="cotgiua"><router-outlet></router-outlet></article>
+    <aside class="col-md-3 bg-secondary" id="cotphai"></aside>
+  </main>
+  <footer class="bg-dark text-white" style="height: 45px">
+    <a (click)="thoat()" *ngIf="daDangNhap()" style="float: right; margin-top: 3px; margin-right: 10px" class="btn btn-danger ml-auto">Đăng xuất</a>
+  </footer>
+</div>

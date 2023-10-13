@@ -1,0 +1,21 @@
+/* Định dạng control khi hợp lệ */
+.ng-valid {
+  border-color: #1E8449; /* Màu viền xanh lá cây đậm */
+}
+
+/* Định dạng control khi không hợp lệ */
+.ng-invalid {
+  border-color: #C0392B; /* Màu viền đỏ đậm */
+}
+
+/* Định dạng control khi đang chờ xử lý */
+.ng-pending {
+  border-color: #F39C12; /* Màu viền cam */
+  background-color: #FEF5E7; /* Màu nền cam nhạt */
+}
+
+/* Định dạng form khi đã submit */
+.ng-submitted {
+  padding: 10px;
+  margin-bottom: 20px; /* Khoảng cách dưới form */
+}
