@@ -3,6 +3,7 @@ import { Task } from '../task'; // Import mô hình dữ liệu Task
 import { TaskService } from '../task.service'; // Import service cho Task
 import { DuAnService } from '../du-an.service'; // Import service cho Dự án
 import { NhanVienService } from '../nhan-vien.service'; // Import service cho Nhân viên
+import { AuthService } from '../auth.service';
 import { forkJoin } from 'rxjs'; // Import operator forkJoin để xử lý nhiều Observable
 
 @Component({
@@ -16,8 +17,9 @@ export class TaskListComponent implements OnInit {
   listTask2: Task[] = []; // Mảng dự phòng cho danh sách công việc
   listDuAn: any[] = []; // Mảng lưu danh sách dự án
   listNhanVien: any[] = []; // Mảng lưu danh sách nhân viên
+  userInfo: any;
 
-  constructor(private taskService: TaskService, private duAnService: DuAnService, private nhanVienService: NhanVienService) {}
+  constructor(private taskService: TaskService, private duAnService: DuAnService, private nhanVienService: NhanVienService, private auth: AuthService) {}
 
   ngOnInit(): void {
     // Sử dụng forkJoin để kết hợp lấy danh sách công việc, dự án và nhân viên từ các service
@@ -29,6 +31,17 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  daDangNhap() {
+    const loggedIn = this.auth.daDangNhap();
+    if (loggedIn) {
+      const userInfoString = localStorage.getItem('user_info');
+      if (userInfoString) {
+        this.userInfo = JSON.parse(userInfoString);
+      }
+    }
+    return loggedIn;
+  }
+
   // Hàm xử lý tìm kiếm công việc
   filteredTask() {
     const keyword = this.searchTerm.toLowerCase(); // Chuyển từ khóa tìm kiếm về chữ thường
@@ -37,12 +50,20 @@ export class TaskListComponent implements OnInit {
 
   // Hàm xác nhận xóa công việc
   confirmDelete(taskId: number) {
-    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa task này?'); // Hỏi người dùng xác nhận xóa
+    if (taskId !== undefined) {
+      // Kiểm tra vai trò người dùng
+      if (this.userInfo?.role === 0) {
+        const confirmDelete = confirm('Bạn có chắc chắn muốn xóa task này?'); // Hỏi người dùng xác nhận xóa
 
-    if (confirmDelete) {
-      this.taskService.deleteTask(taskId).subscribe(() => {
-        this.listTask = this.listTask.filter((task) => task.id !== taskId); // Xóa công việc sau khi xóa thành công
-      });
+        if (confirmDelete) {
+          this.taskService.deleteTask(taskId).subscribe(() => {
+            this.listTask = this.listTask.filter((task) => task.id !== taskId); // Xóa công việc sau khi xóa thành công
+          });
+        }
+      } else {
+        // Người dùng không có quyền xóa, có thể hiển thị thông báo hoặc thực hiện hành động khác ở đây
+        alert('Bạn không có quyền xóa công việc.');
+      }
     }
   }
 

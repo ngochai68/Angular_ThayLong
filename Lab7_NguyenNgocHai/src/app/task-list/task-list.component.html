@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div *ngIf="daDangNhap()" class="row">
     <div class="col-md-12">
       <br>
       <div class="list-group">
@@ -36,7 +36,7 @@
               <strong>Nhân viên:</strong> {{ getTenNhanVien(task.nhanvienID) }}
             </li>
           </ul>
-          <div>
+          <div *ngIf="userInfo?.role === 0">
             <button class="btn btn-primary" [routerLink]="['/task/sua', task.id]">Sửa</button>
             <button class="btn btn-danger" (click)="confirmDelete(task.id)">Xóa</button>
           </div>

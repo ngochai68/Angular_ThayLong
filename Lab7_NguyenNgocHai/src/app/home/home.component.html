@@ -17,11 +17,22 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-body text-center">
-                  <p class="lead" style="font-size: 23px; line-height: 1.6; margin: 10px 0;">
+                  <p class="lead" style="font-size: 23px; line-height: 1.6; margin: 10px 0">
                     "Ai kia <strong>tỉnh thức</strong> cho rồi,<br />
                     Sao còn <strong>ngủ mãi</strong> trôi miền <strong>tử sanh...</strong><br />
                     <strong>Như Lai</strong> tại mỗi <strong>chúng sanh</strong>,<br />
                     Một niệm <strong>Bát Nhã</strong>, sẽ thành <strong>Bất Lai!</strong>"
+                  </p>
+                </div>
+              </div>
+              <div class="card mt-3 mb-3" style="width: 60%; margin: 0 auto;">
+                <div class="card-body ">
+                  <p class="card-text" style="font-size: 15px">Xin chào: {{ userInfo.hoten }}</p>
+                  <p class="card-text" style="font-size: 15px">
+                    Bạn là:
+                    <span [style.color]="userInfo.role === 0 ? 'red' : 'blue'" style="font-size: 15px">
+                      {{ userInfo.role === 0 ? 'Quản lý' : 'Nhân viên' }}
+                    </span>
                   </p>
                 </div>
               </div>

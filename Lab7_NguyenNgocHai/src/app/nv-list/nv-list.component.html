@@ -5,7 +5,7 @@
       <input class="form-control" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm nhân viên..." (keyup)="filteredNhanVien()">
     </div>
   </div>
-  <div class="table-responsive">
+  <div *ngIf="daDangNhap()" class="table-responsive">
     <table class="table table-bordered table-striped mt-3">
       <caption align="top" class="bg-warning p-2 text-center">
         DANH SÁCH NHÂN VIÊN
@@ -17,7 +17,7 @@
           <th>Ngày sinh</th>
           <th>Phái</th>
           <th>Khu vực</th>
-          <th>Hành động</th>
+          <th *ngIf="userInfo?.role === 0" >Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -27,7 +27,7 @@
           <td>{{ nv.ngaysinh | date:'dd/MM/yyyy' }}</td>
           <td>{{ nv.phai === true ? 'Nam' : 'Nữ' }}</td>
           <td>{{ nv.khuvuc }}</td>
-          <td>
+          <td *ngIf="userInfo?.role === 0" > 
             <button class="btn btn-primary" [routerLink]="['/nhanvien/sua', nv.id]">Sửa</button>
             <button class="btn btn-danger" (click)="deleteNhanVien(nv.id)">Xóa</button>
           </td>

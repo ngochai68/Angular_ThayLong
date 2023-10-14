@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NhanVien } from '../nhan-vien';
 import { NhanVienService } from '../nhan-vien.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-nv-list',
@@ -11,8 +12,9 @@ export class NvListComponent implements OnInit {
   searchTerm: string = ''; // Biến lưu trữ từ khóa tìm kiếm
   listNhanVien: NhanVien[] = []; // Danh sách nhân viên
   listNhanVien2: NhanVien[] = []; // Danh sách dự phòng cho việc lọc
+  userInfo: any;
 
-  constructor(private nhanVienService: NhanVienService) {}
+  constructor(private nhanVienService: NhanVienService, private auth: AuthService) {}
 
   ngOnInit(): void {
     // Lấy danh sách nhân viên từ service và gán cho listNhanVien
@@ -20,6 +22,17 @@ export class NvListComponent implements OnInit {
       this.listNhanVien = nhanviens;
       this.listNhanVien2 = [...this.listNhanVien]; // Sao chép danh sách nhân viên để sử dụng cho việc lọc
     });
+  }
+
+  daDangNhap() {
+    const loggedIn = this.auth.daDangNhap();
+    if (loggedIn) {
+      const userInfoString = localStorage.getItem('user_info');
+      if (userInfoString) {
+        this.userInfo = JSON.parse(userInfoString);
+      }
+    }
+    return loggedIn;
   }
 
   filteredNhanVien() {
@@ -33,13 +46,23 @@ export class NvListComponent implements OnInit {
     }
   }
 
+  // Hàm xóa nhân viên
   deleteNhanVien(id: number): void {
-    if (confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')) {
-      // Gọi service để xóa nhân viên và cập nhật danh sách
-      this.nhanVienService.xoaNhanVien(id).subscribe(() => {
-        this.listNhanVien = this.listNhanVien.filter((nv) => nv.id !== id); // Cập nhật danh sách sau khi xóa
-        this.listNhanVien2 = [...this.listNhanVien]; // Cập nhật danh sách dự phòng
-      });
+    if (id !== undefined) {
+      // Kiểm tra vai trò người dùng
+      if (this.userInfo?.role === 0) {
+        if (confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')) {
+          // Gọi service để xóa nhân viên với id cụ thể
+          this.nhanVienService.xoaNhanVien(id).subscribe(() => {
+            // Sau khi xóa, cập nhật lại danh sách nhân viên bằng cách loại bỏ nhân viên có id tương ứng
+            this.listNhanVien = this.listNhanVien.filter((nv) => nv.id !== id);
+            this.listNhanVien2 = [...this.listNhanVien]; // Cập nhật danh sách dự phòng
+          });
+        }
+      } else {
+        // Người dùng không có quyền xóa, có thể hiển thị thông báo hoặc thực hiện hành động khác ở đây
+        alert('Bạn không có quyền xóa nhân viên.');
+      }
     }
   }
 }

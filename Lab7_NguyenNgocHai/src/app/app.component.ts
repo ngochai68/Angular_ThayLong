@@ -9,12 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  userInfo: any;
+
   constructor(private auth: AuthService, private router: Router) {}
+
   thoat() {
     this.auth.thoat();
     this.router.navigate(['/dangnhap']);
   }
   daDangNhap() {
-    return this.auth.daDangNhap();
+    const loggedIn = this.auth.daDangNhap();
+    if (loggedIn) {
+      const userInfoString = localStorage.getItem('user_info');
+      if (userInfoString) {
+        this.userInfo = JSON.parse(userInfoString);
+      }
+    }
+    return loggedIn;
   }
 }

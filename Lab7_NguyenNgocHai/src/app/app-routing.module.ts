@@ -13,20 +13,21 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskThemComponent } from './task-them/task-them.component';
 import { TaskSuaComponent } from './task-sua/task-sua.component';
 import { baoveGuard } from './baove.guard';
+import { quanlyGuard } from './quanly.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dangnhap', component: DangNhapComponent },
   { path: 'duan', component: DuanListComponent, canActivate: [baoveGuard] },
-  { path: 'duan/them', component: DuanThemComponent, canActivate: [baoveGuard] },
+  { path: 'duan/them', component: DuanThemComponent, canActivate: [quanlyGuard] },
   { path: 'duan/:id', component: DuanChitietComponent, canActivate: [baoveGuard] },
-  { path: 'duan/sua/:id', component: DuanSuaComponent, canActivate: [baoveGuard] },
+  { path: 'duan/sua/:id', component: DuanSuaComponent, canActivate: [quanlyGuard] },
   { path: 'nhanvien', component: NvListComponent, canActivate: [baoveGuard] },
-  { path: 'nhanvien/them', component: NvThemComponent, canActivate: [baoveGuard] },
-  { path: 'nhanvien/sua/:id', component: NvSuaComponent, canActivate: [baoveGuard] },
+  { path: 'nhanvien/them', component: NvThemComponent, canActivate: [quanlyGuard] },
+  { path: 'nhanvien/sua/:id', component: NvSuaComponent, canActivate: [quanlyGuard] },
   { path: 'task', component: TaskListComponent, canActivate: [baoveGuard] },
-  { path: 'task/them', component: TaskThemComponent, canActivate: [baoveGuard] },
-  { path: 'task/sua/:id', component: TaskSuaComponent, canActivate: [baoveGuard] },
+  { path: 'task/them', component: TaskThemComponent, canActivate: [quanlyGuard] },
+  { path: 'task/sua/:id', component: TaskSuaComponent, canActivate: [quanlyGuard] },
 ];
 
 @NgModule({
