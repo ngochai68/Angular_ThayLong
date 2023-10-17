@@ -1,0 +1,40 @@
+<div class="container">
+  <h2 class="mb-4">Sửa Dự Án</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="updateProject()">
+    <div class="form-group">
+      <label for="projectName">Tên Dự Án:</label>
+      <input type="text" class="form-control" id="projectName" formControlName="projectName" />
+      <div *ngIf="submitted && projectForm.get('projectName')?.invalid" class="text-danger">Tên dự án là trường bắt buộc</div>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Ngày Bắt Đầu:</label>
+      <input type="date" class="form-control" id="startDate" formControlName="startDate" />
+      <div *ngIf="submitted && projectForm.get('startDate')?.invalid" class="text-danger">Ngày bắt đầu là trường bắt buộc</div>
+    </div>
+
+    <div class="form-group">
+      <label for="budget">Ngân Sách (VNĐ):</label>
+      <input type="number" class="form-control" id="budget" formControlName="budget" />
+      <div *ngIf="submitted && projectForm.get('budget')?.invalid" class="text-danger">Ngân sách không được trống và phải lớn hơn 0.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="leaderId">Leader:</label>
+      <select class="form-control" id="leaderId" formControlName="leaderId">
+        <option *ngFor="let staff of staffs" [value]="staff.id">{{ staff.lastName }} {{ staff.firstName }}</option>
+      </select>
+      <div *ngIf="submitted && projectForm.get('leaderId')?.invalid" class="text-danger">Vui lòng chọn Leader ID.</div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="teamMembers">Nhân Viên:</label>
+      <select multiple size="5" class="form-control" id="teamMembers" formControlName="teamMembers">
+        <option *ngFor="let staff of staffs" [value]="staff.id">{{ staff.lastName }} {{ staff.firstName }}</option>
+      </select>
+      <div *ngIf="submitted && projectForm.get('teamMembers')?.invalid" class="text-danger">Vui lòng chọn ít nhất một nhân viên.</div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Cập Nhật Dự Án</button>
+  </form>
+</div>

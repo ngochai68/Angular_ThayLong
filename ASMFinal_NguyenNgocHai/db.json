@@ -1,0 +1,246 @@
+{
+  "tasks": [
+    {
+      "tenTask": "Phân tích yêu cầu",
+      "moTa": "Phân tích các yêu cầu của khách hàng để team thực hiện",
+      "duAnID": 1,
+      "nhanvienID": 1,
+      "priority": 1,
+      "status": 1,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "tenTask": "Thực hiện layout cho ứng dụng",
+      "duAnID": 1,
+      "nhanvienID": 2,
+      "moTa": "Thực hiện layout website, chú ý kỹ responsive",
+      "status": 0,
+      "priority": 1
+    },
+    {
+      "id": 3,
+      "tenTask": "Tìm hiểu yêu cầu của khách hàng",
+      "duAnID": 2,
+      "nhanvienID": 3,
+      "moTa": "Đến công ty và ghi nhận các yêu cầu của khách hàng",
+      "status": 0,
+      "priority": 2
+    },
+    {
+      "id": 4,
+      "tenTask": "Đăng ký thành viên",
+      "duAnID": 3,
+      "nhanvienID": 4,
+      "moTa": "Thực hiện chức năng đăng ký, có captcha, mail kích hoạt",
+      "status": 0,
+      "priority": 1
+    },
+    {
+      "id": 5,
+      "tenTask": "Đổi pass, quên pass",
+      "duAnID": 1,
+      "nhanvienID": 4,
+      "moTa": "Thực hiện chức năng đổi pass, quên pass. Nhớ kiểm tra user login, email tồn tại, pass cũ hợp lệ",
+      "status": 0,
+      "priority": 1
+    },
+    {
+      "id": 6,
+      "tenTask": "Testing 1",
+      "duAnID": 4,
+      "nhanvienID": 3,
+      "moTa": "Kiểm tra mọi form chức năng theo các case đã liệt kê",
+      "status": 0,
+      "priority": 2
+    },
+    {
+      "id": 7,
+      "tenTask": "Triển khai website",
+      "duAnID": 5,
+      "nhanvienID": 4,
+      "moTa": "Triển khai website lên hosting đã mua",
+      "status": 0,
+      "priority": 2
+    },
+    {
+      "id": 8,
+      "tenTask": "Hướng dẫn sử dụng và bàn giao",
+      "duAnID": 5,
+      "nhanvienID": 1,
+      "moTa": "Hướng dẫn sử dụng cho khách hàng",
+      "status": 0,
+      "priority": 2
+    },
+    {
+      "id": 9,
+      "tenTask": "Testing 2",
+      "duAnID": 4,
+      "nhanvienID": 2,
+      "moTa": "Kiểm tra các tính năng bảo mật theo các yêu cầu đã nêu trong tài liệu dự án",
+      "status": 0,
+      "priority": 2
+    }
+  ],
+  "staffs": [
+    {
+      "id": 1,
+      "lastName": "Mai Thanh",
+      "firstName": "Toán",
+      "dateOfBirth": "2002-06-15",
+      "gender": true,
+      "area": "Nam"
+    },
+    {
+      "lastName": "Cao Thị Chót",
+      "firstName": "Vót",
+      "dateOfBirth": "2002-08-19",
+      "gender": false,
+      "area": "Nam",
+      "id": 2
+    },
+    {
+      "lastName": "Mai Phạt Sáu",
+      "firstName": "Ngàn",
+      "dateOfBirth": "2001-02-28",
+      "gender": false,
+      "area": "Trung",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "lastName": "Nguyễn Văn A",
+      "firstName": "Hòa",
+      "dateOfBirth": "1995-12-10",
+      "gender": true,
+      "area": "Bắc"
+    },
+    {
+      "id": 5,
+      "lastName": "Trần Thị B",
+      "firstName": "Lan",
+      "dateOfBirth": "1990-03-25",
+      "gender": false,
+      "area": "Nam"
+    },
+    {
+      "id": 6,
+      "lastName": "Lê Văn C",
+      "firstName": "Thành",
+      "dateOfBirth": "1988-07-14",
+      "gender": true,
+      "area": "Trung"
+    },
+    {
+      "id": 7,
+      "lastName": "Phạm Thị D",
+      "firstName": "Phượng",
+      "dateOfBirth": "1998-05-03",
+      "gender": false,
+      "area": "Nam"
+    },
+    {
+      "id": 8,
+      "lastName": "Hoàng Văn E",
+      "firstName": "Nam",
+      "dateOfBirth": "2000-09-20",
+      "gender": true,
+      "area": "Bắc"
+    },
+    {
+      "id": 9,
+      "lastName": "Trịnh Thị F",
+      "firstName": "Hạnh",
+      "dateOfBirth": "1996-01-12",
+      "gender": false,
+      "area": "Trung"
+    },
+    {
+      "id": 10,
+      "lastName": "Ngô Văn G",
+      "firstName": "Hải",
+      "dateOfBirth": "1991-04-05",
+      "gender": true,
+      "area": "Nam"
+    },
+    {
+      "id": 11,
+      "lastName": "Vũ Thị H",
+      "firstName": "Dung",
+      "dateOfBirth": "1987-11-30",
+      "gender": false,
+      "area": "Bắc"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "projectName": "Quản lý trại heo",
+      "startDate": "2022-03-01",
+      "budget": 67000000,
+      "leaderId": "2",
+      "teamMembers": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": 2,
+      "projectName": "Cây xanh công viên",
+      "startDate": "2022-04-02",
+      "budget": 98500000,
+      "leaderId": "2",
+      "teamMembers": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": 3,
+      "projectName": "Website Văn hóa Việt",
+      "startDate": "2022-04-15",
+      "budget": 35000000,
+      "leaderId": 2,
+      "teamMembers": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "projectName": "Website Du lịch Bụi",
+      "startDate": "2022-04-21",
+      "budget": 75500000,
+      "leaderId": 2,
+      "teamMembers": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": 5,
+      "projectName": "Quản lý nhà thuốc Vĩnh An",
+      "startDate": "2022-05-02",
+      "budget": 97000000,
+      "leaderId": 3,
+      "teamMembers": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": 6,
+      "projectName": "Chăm sóc thú cưng",
+      "startDate": "2022-02-11",
+      "budget": 18000000,
+      "leaderId": 3,
+      "teamMembers": [
+        1,
+        3,
+        4
+      ]
+    }
+  ]
+}
