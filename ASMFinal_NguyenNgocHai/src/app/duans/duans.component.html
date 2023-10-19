@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2 class="text-center">DANH SÁCH DỰ ÁN</h2>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <input class="form-control mb-3" name="tk" [(ngModel)]="searchTerm" placeholder="Tìm kiếm dự án..." (keyup)="filteredDuAn()" />
+      </div>
+    </div>
+    <div *ngIf="daDangNhap()" class="table-responsive">
+      <table class="table table-bordered table-striped mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên dự án</th>
+            <th scope="col">Ngày bắt đầu</th>
+            <th scope="col">Tiền</th>
+            <th *ngIf="userInfo?.role === 0" scope="col">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let da of listDuAn">
+            <th scope="row">{{ da.id }}</th>
+            <td>
+              <a [routerLink]="['/duan', da.id]" class="text-dark font-weight-bold" style="text-decoration: none; color: black">{{ da.tenDuAn }}</a>
+            </td>
+            <td>{{ da.ngayStart | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ da.tien | currency : 'VND' : true }}</td>
+            <td *ngIf="userInfo?.role === 0">
+              <button class="btn btn-primary btn-sm mr-2" [routerLink]="['/duan/sua', da.id]">Sửa</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteDuAn(da.id)">Xóa</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

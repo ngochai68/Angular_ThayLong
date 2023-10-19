@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { baoveGuard } from './guards/baove.guard';
 
 const routes: Routes = [
-  {
-    path: 'projects',
-    loadChildren: () =>
-      import('./projects/projects.module').then((m) => m.ProjectsModule),
-  },
-  {
-    path: 'staffs',
-    loadChildren: () =>
-      import('./staffs/staffs.module').then((m) => m.StaffsModule),
-  },
+  { path: 'duan', loadChildren: () => import('./duans/duans.module').then((m) => m.DuansModule), canActivate: [baoveGuard]  },
+  { path: 'nhanvien', loadChildren: () => import('./nhanviens/nhanviens.module').then((m) => m.NhanviensModule), canActivate: [baoveGuard]  },
+  { path: 'task', loadChildren: () => import('./tasks/tasks.module').then((m) => m.TasksModule), canActivate: [baoveGuard]  },
+  { path: '', loadChildren: () => import('./home/home.module').then((m) => m.HomeModule) },
+  { path: 'dangnhap', loadChildren: () => import('./dang-nhap/dang-nhap.module').then(m => m.DangNhapModule) },
 ];
 
 @NgModule({

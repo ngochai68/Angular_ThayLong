@@ -82,162 +82,113 @@
       "priority": 2
     }
   ],
-  "staffs": [
+  "nhanviens": [
     {
       "id": 1,
-      "lastName": "Mai Thanh",
-      "firstName": "Toán",
-      "dateOfBirth": "2002-06-15",
-      "gender": true,
-      "area": "Nam"
+      "ho": "Nguyễn Bá",
+      "ten": "Đạo",
+      "ngaysinh": "2001-01-03",
+      "phai": true,
+      "khuvuc": "Bắc"
     },
     {
-      "lastName": "Cao Thị Chót",
-      "firstName": "Vót",
-      "dateOfBirth": "2002-08-19",
-      "gender": false,
-      "area": "Nam",
-      "id": 2
+      "id": 2,
+      "ho": "Phạm Kỷ",
+      "ten": "Luật",
+      "ngaysinh": "2001-05-06",
+      "phai": true,
+      "khuvuc": "Bắc"
     },
     {
-      "lastName": "Mai Phạt Sáu",
-      "firstName": "Ngàn",
-      "dateOfBirth": "2001-02-28",
-      "gender": false,
-      "area": "Trung",
-      "id": 3
+      "id": 3,
+      "ho": "Mai Thanh",
+      "ten": "Toán",
+      "ngaysinh": "2002-06-15",
+      "phai": true,
+      "khuvuc": "Nam"
     },
     {
       "id": 4,
-      "lastName": "Nguyễn Văn A",
-      "firstName": "Hòa",
-      "dateOfBirth": "1995-12-10",
-      "gender": true,
-      "area": "Bắc"
+      "ho": "Cao Thị Chót",
+      "ten": "Vót",
+      "ngaysinh": "2002-08-19",
+      "phai": false,
+      "khuvuc": "Nam"
     },
     {
       "id": 5,
-      "lastName": "Trần Thị B",
-      "firstName": "Lan",
-      "dateOfBirth": "1990-03-25",
-      "gender": false,
-      "area": "Nam"
-    },
-    {
-      "id": 6,
-      "lastName": "Lê Văn C",
-      "firstName": "Thành",
-      "dateOfBirth": "1988-07-14",
-      "gender": true,
-      "area": "Trung"
-    },
-    {
-      "id": 7,
-      "lastName": "Phạm Thị D",
-      "firstName": "Phượng",
-      "dateOfBirth": "1998-05-03",
-      "gender": false,
-      "area": "Nam"
-    },
-    {
-      "id": 8,
-      "lastName": "Hoàng Văn E",
-      "firstName": "Nam",
-      "dateOfBirth": "2000-09-20",
-      "gender": true,
-      "area": "Bắc"
-    },
-    {
-      "id": 9,
-      "lastName": "Trịnh Thị F",
-      "firstName": "Hạnh",
-      "dateOfBirth": "1996-01-12",
-      "gender": false,
-      "area": "Trung"
-    },
-    {
-      "id": 10,
-      "lastName": "Ngô Văn G",
-      "firstName": "Hải",
-      "dateOfBirth": "1991-04-05",
-      "gender": true,
-      "area": "Nam"
-    },
-    {
-      "id": 11,
-      "lastName": "Vũ Thị H",
-      "firstName": "Dung",
-      "dateOfBirth": "1987-11-30",
-      "gender": false,
-      "area": "Bắc"
+      "ho": "Mai Phạt Sáu",
+      "ten": "Ngàn",
+      "ngaysinh": "2001-02-28",
+      "phai": false,
+      "khuvuc": "Trung"
     }
   ],
-  "projects": [
+  "duans": [
     {
       "id": 1,
-      "projectName": "Quản lý trại heo",
-      "startDate": "2022-03-01",
-      "budget": 67000000,
-      "leaderId": "2",
-      "teamMembers": [
-        2,
+      "tenDuAn": "Quản lý trại heo ",
+      "ngayStart": "2022-03-01",
+      "tien": 67000000,
+      "leader": 1,
+      "thanhvien": [
+        1,
         3,
-        4,
-        5
+        4
       ]
     },
     {
       "id": 2,
-      "projectName": "Cây xanh công viên",
-      "startDate": "2022-04-02",
-      "budget": 98500000,
-      "leaderId": "2",
-      "teamMembers": [
+      "tenDuAn": "Cây xanh công viên",
+      "ngayStart": "2022-04-02",
+      "tien": 98500000,
+      "leader": 1,
+      "thanhvien": [
+        1,
         3,
         4
       ]
     },
     {
       "id": 3,
-      "projectName": "Website Văn hóa Việt",
-      "startDate": "2022-04-15",
-      "budget": 35000000,
-      "leaderId": 2,
-      "teamMembers": [
+      "tenDuAn": "Website Văn hóa Việt",
+      "ngayStart": "2022-04-15",
+      "tien": 35000000,
+      "leader": 2,
+      "thanhvien": [
         2,
         4
       ]
     },
     {
       "id": 4,
-      "projectName": "Website Du lịch Bụi",
-      "startDate": "2022-04-21",
-      "budget": 75500000,
-      "leaderId": 2,
-      "teamMembers": [
+      "tenDuAn": "Website Du lịch Bụi",
+      "ngayStart": "2022-04-21",
+      "tien": 75500000,
+      "leader": 2,
+      "thanhvien": [
         2,
         4
       ]
     },
     {
       "id": 5,
-      "projectName": "Quản lý nhà thuốc Vĩnh An",
-      "startDate": "2022-05-02",
-      "budget": 97000000,
-      "leaderId": 3,
-      "teamMembers": [
+      "tenDuAn": "Quản lý nhà thuốc Vĩnh An",
+      "ngayStart": "2022-05-02",
+      "tien": 97000000,
+      "leader": 3,
+      "thanhvien": [
         3,
         4
       ]
     },
     {
       "id": 6,
-      "projectName": "Chăm sóc thú cưng",
-      "startDate": "2022-02-11",
-      "budget": 18000000,
-      "leaderId": 3,
-      "teamMembers": [
-        1,
+      "tenDuAn": "Chăm sóc thú cưng",
+      "ngayStart": "2022-02-11",
+      "tien": 18000000,
+      "leader": 3,
+      "thanhvien": [
         3,
         4
       ]
